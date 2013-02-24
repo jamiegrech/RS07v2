@@ -35,8 +35,6 @@ public class WebCrawler implements Settings {
         } catch (Exception e) {
             e.printStackTrace();;
         }
-        hm.remove("seperate_jvm");
-        hm.remove("java_arguments");
         return hm;
     }
 
