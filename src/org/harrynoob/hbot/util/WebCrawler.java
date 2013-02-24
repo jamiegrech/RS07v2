@@ -41,8 +41,7 @@ public class WebCrawler implements Settings {
     }
 
     public static String get(String key) {
-        if(hm == null) crawl();
-        return hm.get(key);
+        return hm == null ? crawl().get(key) : hm.get(key);
     }
 
 }
