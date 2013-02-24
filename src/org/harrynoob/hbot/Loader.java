@@ -4,7 +4,6 @@ import org.harrynoob.hbot.ui.UIFrame;
 import org.harrynoob.hbot.util.Downloader;
 import org.harrynoob.hbot.util.Extractor;
 import org.harrynoob.hbot.util.Settings;
-import org.harrynoob.hbot.util.WebCrawler;
 
 import java.applet.Applet;
 import java.net.URL;
