@@ -20,8 +20,8 @@ import java.net.URLClassLoader;
 public class Loader implements Settings {
 
     public static void main(String[] args) {
-        Downloader.downloadJar();
-        new Extractor().extractJar();
+        Downloader d = new Downloader();
+        new Extractor().extractJar(d.downloadJar());
         URLClassLoader u = getClassLoader();
         try {
             Class<?> clazz = Class.forName("client", true, u);

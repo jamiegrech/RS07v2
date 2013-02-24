@@ -15,7 +15,7 @@ import java.util.zip.ZipFile;
  */
 public class Extractor implements Settings {
 
-    public void extractJar() {
+    public void extractJar(ZipFile zf) {
 /*
         try {
             File saveDir = new File(SAVEDIR, "gamepack/");
@@ -45,13 +45,11 @@ public class Extractor implements Settings {
             e.printStackTrace();
         }
 */
-        extractZip(SAVEDIR + WebCrawler.get("gamepack"));
+        extractZip(zf);
     }
 
-    public void extractZip(String zipFile) {
+    public void extractZip(ZipFile zip) {
         try {
-            File file = new File(zipFile);
-            ZipFile zip = new ZipFile(file);
             String newPath = SAVEDIR + "gamepack/";
             new File(newPath).mkdir();
             Enumeration zipFileEntries = zip.entries();
@@ -78,7 +76,7 @@ public class Extractor implements Settings {
                 }
                 if (currentEntry.endsWith(".zip"))
                 {
-                    extractZip(destFile.getAbsolutePath());
+                    extractZip(new ZipFile(destFile.getAbsolutePath()));
                 }
             }
         } catch (Exception e) {
@@ -86,10 +84,13 @@ public class Extractor implements Settings {
         }
     }
 
-    public void deleteFiles(File dir) {
+    public boolean deleteFiles(File dir) {
         for(File f : dir.listFiles()) {
-            f.delete();
+            if(!f.delete()) {
+                return false;
+            }
         }
+        return true;
     }
 
 }

@@ -4,6 +4,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.InputStream;
 import java.net.URL;
+import java.util.jar.JarFile;
+import java.util.zip.ZipFile;
 
 /**
  * Do not use this without permission.
@@ -13,7 +15,7 @@ import java.net.URL;
  */
 public class Downloader implements Settings {
 
-    public static void downloadJar() {
+    public JarFile downloadJar() {
         if(requiresUpdate()) {
             try {
                 URL u = new URL(PAGE_URL + WebCrawler.get("gamepack"));
@@ -29,13 +31,21 @@ public class Downloader implements Settings {
                 }
                 reader.close();
                 writer.close();
+                return new JarFile(SAVEDIR + WebCrawler.get("gamepack"));
             } catch(Exception e) {
                 e.printStackTrace();
+                return null;
+            }
+        } else {
+            try {
+                return new JarFile(SAVEDIR + WebCrawler.get("gamepack"));
+            } catch (Exception e) {
+                return null;
             }
         }
     }
 
-    private static boolean requiresUpdate() {
+    private boolean requiresUpdate() {
         File dir = new File(SAVEDIR);
         if(dir.mkdirs()) {
             return true;
@@ -47,6 +57,4 @@ public class Downloader implements Settings {
         }
         return true;
     }
-
-
 }
